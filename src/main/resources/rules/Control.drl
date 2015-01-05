@@ -229,19 +229,23 @@ end
 rule "When user tells to remove top choice religion, retract it"
 	when
 		m : Message( type == MessageType.RETRACT_TOP_RELIGION )
-		$r : ArrayList() from collect ( Religion( ratio >= 3.0 ) )
+		$r : ArrayList() from collect ( Religion( ratio >= 1.0 ) )
 	then
 		System.err.println("[Retracting top choice]");
 		retract(m);
 		retract(topReligion($r));
-		insert(new Message(MessageType.SECOND_PHASE_QUESTION));
+		insert(new Message(MessageType.EVALUATE_BEST));
 end
+
 
 rule "When ordered the evaluation of best fit ratio, ask the user if it is what he wants"
 	when
 		m1 : Message( type == MessageType.EVALUATE_BEST )
 		$r : ArrayList() from collect ( Religion( ratio >= 1.0 ) )
 	then
+		for (Object rel : $r) {
+			System.out.println(((Religion)rel).getReligionName());
+		}
 		retract(m1);
 		Religion topRel = topReligion($r);
 		for (Object rel : $r) ((Religion)rel).setTop(false);
