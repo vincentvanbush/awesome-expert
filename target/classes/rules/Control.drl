@@ -1,0 +1,64 @@
+//created on: 2014-12-29
+//package com.sample
+
+//list any import classes here.
+import com.control.Religion;
+import com.control.Question;
+import com.control.ReligionName;
+import com.control.QuestionType;
+
+rule "Init religions"
+	when
+	then
+		insert(new Religion(ReligionName.CHRISTIANITY));
+		insert(new Religion(ReligionName.ISLAM));
+		insert(new Religion(ReligionName.JUDAISM));
+		insert(new Religion(ReligionName.BUDDHISM));
+		insert(new Religion(ReligionName.HINDUISM));
+		insert(new Religion(ReligionName.BAHAISM));
+		insert(new Religion(ReligionName.SIKHISM));
+		insert(new Religion(ReligionName.JAINISM));
+		insert(new Religion(ReligionName.CONFUCIANISM));
+		insert(new Religion(ReligionName.TAOISM));
+		insert(new Religion(ReligionName.SHINTO));
+		insert(new Religion(ReligionName.ZOROASTRIANISM));
+end
+
+rule "Init questions"
+    when
+        //conditions
+    then
+        insert(new Question(QuestionType.NUMBER_OF_GODS_TO_BELIEVE, new Object[] {new String("ONE_GOD"), new String("MANY_GODS"), new String("ONE_GOD_IN_MANY_PERSONS"), new String("NO_GOD")}, new ReligionName[] {ReligionName.ALL}));
+        
+        insert(new Question(QuestionType.CARE_ABOUT_GODS_EXISTENCE, 	new Object[] {new Boolean(true), new Boolean(false)}, 	new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.HUMAN_FORM_OF_GOD, 			new Object[] {new Boolean(true), new Boolean(false)}, 	new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.CARE_ABOUT_HELL_EXISTENCE, 	new Object[] {new Boolean(true), new Boolean(false)}, 	new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.CARE_ABOUT_HEAVEN_EXISTENCE, 	new Object[] {new Boolean(true), new Boolean(false)}, 	new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.BELIEF_IN_REINCARNATION, 		new Object[] {new Boolean(true), new Boolean(false)}, 	new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.NESSESITY_OF_PRAYER, 			new Object[] {new Boolean(true), new Boolean(false)}, 	new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.NESSESITY_OF_MEDITATION, 		new Object[] {new Boolean(true), new Boolean(false)}, 	new ReligionName[] {ReligionName.ALL}));
+        
+        insert(new Question(QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, 	new Object[] {new String("DEFINITELY_DO_NOT_ACCEPT"), new String("RATHER_DO_NOT_ACCEPT"), new String("NO_MATTER"), new String("DO_ACCEPT")}, 	new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, 			new Object[] {new String("DEFINITELY_DO_NOT_ACCEPT"), new String("RATHER_DO_NOT_ACCEPT"), new String("NO_MATTER"), new String("DO_ACCEPT")}, 	new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, 		new Object[] {new String("DEFINITELY_DO_NOT_ACCEPT"), new String("RATHER_DO_NOT_ACCEPT"), new String("NO_MATTER"), new String("DO_ACCEPT")}, 	new ReligionName[] {ReligionName.ALL}));
+        //insert(new Question(QuestionType.RESTRICTIONS_OF_SEXUALITY,, new ReligionName[] {ReligionName.ALL}));
+        //insert(new Question(QuestionType.VIEW_OF_POLIGAMY,, new ReligionName[] {ReligionName.ALL}));
+        //System.out.println("reguly dzialaja");
+end
+
+/*rule "Update hits when religion in memory" 
+	when
+		h : Hit( type == true )
+		r : Religion( getReligionName() == h.religionName )
+	then
+		r.updateHits();
+end
+
+rule "Update misses when religion in memory"
+	when
+		h : Hit( type == false )
+		r : Religion( getReligionName() == h.religionName )
+	then
+		r.updateMisses();
+end*/
+		
