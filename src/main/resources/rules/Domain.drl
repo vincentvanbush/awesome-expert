@@ -378,3 +378,10 @@ rule "VIEW_OF_POLIGAMY: 2"
         insert( new Hit(ReligionName.CONFUCIANISM, false, a) );
         insert( new Hit(ReligionName.ZOROASTRIANISM, false, a) );
 end
+
+rule "Retract answer"
+	when
+		a : Answer()
+	then
+		retract(a);
+end

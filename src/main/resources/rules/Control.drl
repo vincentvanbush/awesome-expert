@@ -16,6 +16,12 @@ global Religion glTopReligion;
 global ArrayList<Object> glAnswers;
 global Question glQuestion;
 
+function Religion topReligion(ArrayList $r) {
+	ArrayList<Religion> rels = (ArrayList<Religion>) $r;
+	java.util.Collections.sort(rels);
+	return rels.get(0);
+}
+
 rule "Init religions"
 	when
 	then
@@ -37,6 +43,7 @@ rule "Init questions"
     when
         //conditions
     then
+    	// Initial phase questions (for all religions)
         insert(new Question(QuestionType.NUMBER_OF_GODS_TO_BELIEVE, new Object[] {"one/one", "one/many", "many", "none"}, new ReligionName[] {ReligionName.ALL}));
         insert(new Question(QuestionType.CARE_ABOUT_GODS_EXISTENCE, 	new Object[] {new Boolean(true), new Boolean(false)}, 	new ReligionName[] {ReligionName.ALL}));
         insert(new Question(QuestionType.HUMAN_FORM_OF_GOD, 			new Object[] {new Boolean(true), new Boolean(false)}, 	new ReligionName[] {ReligionName.ALL}));
@@ -51,14 +58,15 @@ rule "Init questions"
         insert(new Question(QuestionType.RESTRICTIONS_OF_SEXUALITY, new Object[] {true, false}, new ReligionName[] {ReligionName.ALL}));
         insert(new Question(QuestionType.VIEW_OF_POLYGAMY, new Object[] {0, 1, 2}, new ReligionName[] {ReligionName.ALL}));
         
-        insert(new Question(null, new Object[] {"dupa", "kupa"}, new ReligionName[] {ReligionName.ISLAM}));
+        // Secondary phase questions (for specific sets of religions)
+        insert(new Question(QuestionType.FOO, new Object[] {"dupa", "kupa"}, new ReligionName[] {ReligionName.SIKHISM}));
+        insert(new Question(QuestionType.BAR, new Object[] {"ab", "cd"}, new ReligionName[] {ReligionName.SIKHISM}));
+        insert(new Question(QuestionType.FIZZ, new Object[] {true, false}, new ReligionName[] {ReligionName.SIKHISM}));
+        insert(new Question(QuestionType.BUZZ, new Object[] {0,1,2}, new ReligionName[] {ReligionName.SIKHISM}));
+        
         
         insert(new Message(MessageType.INITIAL_PHASE));
-        
-        insert(new Message(MessageType.INITIAL_PHASE_QUESTION));
-        
-        //System.out.println("reguly dzialaja");
-        
+        insert(new Message(MessageType.INITIAL_PHASE_QUESTION));    
 end
 
 rule "Choose initial phase question and open the corresponding window"
@@ -74,14 +82,31 @@ rule "Choose initial phase question and open the corresponding window"
 		new com.windows.QuestionWindow(kcontext, question, question.getAnswers()).show();
 end
 
+rule "Choose second phase question and open the corresponding window"
+	when
+		m1: Message( type == MessageType.SECOND_PHASE )
+		m: Message( type == MessageType.SECOND_PHASE_QUESTION )
+		$r: Religion( top == true )
+		exists Question( active == false, religions contains $r.religionName )
+		$questions : ArrayList() from collect ( Question( active == false, religions contains $r.religionName ) )
+	then
+		retract(m);
+		Question question = (Question)($questions.get(0));
+		System.err.println("[Asking 2nd phase question] for religion: " + $r.getReligionName() + " / " + question.getType());
+		new com.windows.QuestionWindow(kcontext, question, question.getAnswers()).show();
+		
+end
+
 rule "When no initial phase questions left"
 	when
+		m1: Message( type == MessageType.INITIAL_PHASE )
 		m: Message( type == MessageType.INITIAL_PHASE_QUESTION )
 		not Question( active == false, religions contains ReligionName.ALL )
 	then
 		System.err.println("--- End of the initial phase. Now evaluate the best option");
 		retract(m);
-		insert(new Message(MessageType.SECOND_PHASE));
+		retract(m1);
+		//insert(new Message(MessageType.SECOND_PHASE));
 		insert(new Message(MessageType.EVALUATE_BEST));
 end
 
@@ -101,6 +126,14 @@ rule "When getting an answer, in the initial phase, ask for next initial phase q
 		insert(new Message(MessageType.INITIAL_PHASE_QUESTION));
 end
 
+rule "When getting an answer, in the second phase, ask for next second phase question"
+	when
+		$answer : Answer()
+		Message( type == MessageType.SECOND_PHASE )
+	then
+		insert(new Message(MessageType.SECOND_PHASE_QUESTION));
+end
+
 rule "When hit"
 	when
 		h: Hit( hitType : type )
@@ -115,8 +148,12 @@ end
 rule "When user tells to remove top choice religion, retract it"
 	when
 		m : Message( type == MessageType.RETRACT_TOP_RELIGION )
+		$r : ArrayList() from collect ( Religion( ratio >= 3.0 ) )
 	then
-		retract(glTopReligion);
+		System.err.println("[Retracting top choice]");
+		retract(m);
+		retract(topReligion($r));
+		insert(new Message(MessageType.SECOND_PHASE_QUESTION));
 end
 
 rule "When ordered the evaluation of best fit ratio, ask the user if it is what he wants"
@@ -124,9 +161,10 @@ rule "When ordered the evaluation of best fit ratio, ask the user if it is what 
 		m1 : Message( type == MessageType.EVALUATE_BEST )
 		$r : ArrayList() from collect ( Religion( ratio >= 3.0 ) )
 	then
-		ArrayList<Religion> rels = (ArrayList<Religion>) $r;
-		java.util.Collections.sort(rels);
-		glTopReligion = rels.get(0); // this is the chosen top religion - put into global so we can retract it later
-		System.err.println("[Top choice] " + glTopReligion.getRatio() + " : " + glTopReligion.getReligionName());
-		insert(new Message(MessageType.CHOOSE_TOP_RELIGION));
+		retract(m1);
+		Religion topRel = topReligion($r);
+		topRel.setTop(true);
+		update(topRel);
+		System.err.println("[Top choice] " + topRel.getRatio() + " : " + topRel.getReligionName());
+		new com.windows.ConclusionWindow(kcontext, topRel).show();
 end

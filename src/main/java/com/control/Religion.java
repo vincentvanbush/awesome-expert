@@ -48,4 +48,14 @@ public class Religion implements Comparable {
 		return -1 * Float.compare(getRatio(), ((Religion)(o)).getRatio());
 	}
 	
+	private boolean top;
+	
+	public boolean isTop() {
+		return top;
+	}
+	
+	public void setTop(boolean top) {
+		this.top = top;
+	}
+	
 }
