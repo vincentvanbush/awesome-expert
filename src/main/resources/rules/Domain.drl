@@ -1,0 +1,387 @@
+package com.sample
+ 
+import com.control.QuestionType;
+import com.control.ReligionName;
+import com.control.Question;
+import com.control.Answer;
+import com.control.Hit;
+
+ 
+rule "CARE_ABOUT_GODS_EXISTENCE"
+    when
+        a : Answer( questionType == QuestionType.CARE_ABOUT_GODS_EXISTENCE, answer : content )
+    then
+		Boolean ans = (Boolean) answer;
+        insert( new Hit(ReligionName.CHRISTIANITY, ans, a) );
+        insert( new Hit(ReligionName.ISLAM, ans, a) );
+        insert( new Hit(ReligionName.JUDAISM, ans, a) );
+        insert( new Hit(ReligionName.BAHAISM, ans, a) );
+        insert( new Hit(ReligionName.HINDUISM, ans, a) );
+        insert( new Hit(ReligionName.BUDDHISM, !ans, a) );
+        insert( new Hit(ReligionName.SIKHISM, ans, a) );
+        insert( new Hit(ReligionName.JAINISM, !ans, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, !ans, a) );
+        insert( new Hit(ReligionName.TAOISM, ans, a) );
+        insert( new Hit(ReligionName.SHINTO, ans, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, ans, a) );
+        insert( new Hit(ReligionName.ATHEISM, ans, a) );
+end
+
+rule "NUMBER_OF_GODS_TO_BELIEVE: one/one"
+	when
+		a : Answer( questionType == QuestionType.NUMBER_OF_GODS_TO_BELIEVE, content == "one/one" )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.ISLAM, true, a) );
+        insert( new Hit(ReligionName.JUDAISM, true, a) );
+        insert( new Hit(ReligionName.BAHAISM, true, a) );
+        insert( new Hit(ReligionName.HINDUISM, false, a) );
+        insert( new Hit(ReligionName.SIKHISM, true, a) );
+        insert( new Hit(ReligionName.TAOISM, false, a) );
+        insert( new Hit(ReligionName.SHINTO, false, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, false, a) );
+        insert( new Hit(ReligionName.ATHEISM, false, a) );
+end
+
+rule "NUMBER_OF_GODS_TO_BELIEVE: one/many"
+	when
+		a : Answer( questionType == QuestionType.NUMBER_OF_GODS_TO_BELIEVE, content == "one/many" )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, true, a) );
+        insert( new Hit(ReligionName.ISLAM, false, a) );
+        insert( new Hit(ReligionName.JUDAISM, false, a) );
+        insert( new Hit(ReligionName.BAHAISM, false, a) );
+        insert( new Hit(ReligionName.HINDUISM, false, a) );
+        insert( new Hit(ReligionName.SIKHISM, false, a) );
+        insert( new Hit(ReligionName.TAOISM, false, a) );
+        insert( new Hit(ReligionName.SHINTO, false, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, true, a) );
+        insert( new Hit(ReligionName.ATHEISM, false, a) );
+end
+
+rule "NUMBER_OF_GODS_TO_BELIEVE: many"
+	when
+		a : Answer( questionType == QuestionType.NUMBER_OF_GODS_TO_BELIEVE, content == "many" )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.ISLAM, false, a) );
+        insert( new Hit(ReligionName.JUDAISM, false, a) );
+        insert( new Hit(ReligionName.BAHAISM, false, a) );
+        insert( new Hit(ReligionName.HINDUISM, true, a) );
+        insert( new Hit(ReligionName.SIKHISM, false, a) );
+        insert( new Hit(ReligionName.TAOISM, true, a) );
+        insert( new Hit(ReligionName.SHINTO, true, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, false, a) );
+        insert( new Hit(ReligionName.ATHEISM, false, a) );
+end
+
+rule "NUMBER_OF_GODS_TO_BELIEVE: none"
+	when
+		a : Answer( questionType == QuestionType.NUMBER_OF_GODS_TO_BELIEVE, content == "none" )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.ISLAM, false, a) );
+        insert( new Hit(ReligionName.JUDAISM, false, a) );
+        insert( new Hit(ReligionName.BAHAISM, false, a) );
+        insert( new Hit(ReligionName.HINDUISM, false, a) );
+        insert( new Hit(ReligionName.SIKHISM, false, a) );
+        insert( new Hit(ReligionName.TAOISM, false, a) );
+        insert( new Hit(ReligionName.SHINTO, false, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, false, a) );
+        insert( new Hit(ReligionName.ATHEISM, true, a) );
+end
+
+rule "HUMAN_FORM_OF_GOD"
+	when
+		a : Answer( questionType == QuestionType.HUMAN_FORM_OF_GOD, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+        insert( new Hit(ReligionName.CHRISTIANITY, ans, a) );
+        insert( new Hit(ReligionName.ISLAM, !ans, a) );
+        insert( new Hit(ReligionName.JUDAISM, ans, a) );
+        insert( new Hit(ReligionName.BAHAISM, !ans, a) );
+        insert( new Hit(ReligionName.SIKHISM, !ans, a) );
+        insert( new Hit(ReligionName.TAOISM, !ans, a) );
+        insert( new Hit(ReligionName.SHINTO, ans, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, !ans, a) );
+end
+
+rule "CARE_ABOUT_HELL_EXISTENCE"
+	when
+		a : Answer( questionType == QuestionType.CARE_ABOUT_HELL_EXISTENCE, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+        insert( new Hit(ReligionName.CHRISTIANITY, ans, a) );
+        insert( new Hit(ReligionName.ISLAM, ans, a) );
+        insert( new Hit(ReligionName.JUDAISM, ans, a) );
+        insert( new Hit(ReligionName.BAHAISM, ans, a) );
+        insert( new Hit(ReligionName.HINDUISM, ans, a) );
+        insert( new Hit(ReligionName.BUDDHISM, !ans, a) ); 
+        insert( new Hit(ReligionName.SIKHISM, ans, a) );
+        insert( new Hit(ReligionName.JAINISM, ans, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, !ans, a) );
+        insert( new Hit(ReligionName.TAOISM, ans, a) );
+        insert( new Hit(ReligionName.SHINTO, ans, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, ans, a) );
+        insert( new Hit(ReligionName.ATHEISM, !ans, a) );
+end
+
+rule "CARE_ABOUT_HEAVEN_EXISTENCE"
+	when
+		a : Answer( questionType == QuestionType.CARE_ABOUT_HEAVEN_EXISTENCE, answer : content )
+	then
+        Boolean ans = (Boolean) answer;
+        insert( new Hit(ReligionName.CHRISTIANITY, ans, a) );
+        insert( new Hit(ReligionName.ISLAM, ans, a) );
+        insert( new Hit(ReligionName.JUDAISM, ans, a) );
+        insert( new Hit(ReligionName.BAHAISM, ans, a) );
+        insert( new Hit(ReligionName.HINDUISM, !ans, a) );
+        insert( new Hit(ReligionName.BUDDHISM, !ans, a) );
+        insert( new Hit(ReligionName.SIKHISM, ans, a) );
+        insert( new Hit(ReligionName.JAINISM, ans, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, !ans, a) );
+        insert( new Hit(ReligionName.TAOISM, ans, a) );
+        insert( new Hit(ReligionName.SHINTO, ans, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, ans, a) );
+        insert( new Hit(ReligionName.ATHEISM, !ans, a) );
+end
+
+rule "BELIEF_IN_REINCARNATION"
+	when
+		a : Answer( questionType == QuestionType.BELIEF_IN_REINCARNATION, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+        insert( new Hit(ReligionName.CHRISTIANITY, !ans, a) );
+        insert( new Hit(ReligionName.ISLAM, !ans, a) );
+        insert( new Hit(ReligionName.JUDAISM, !ans, a) );
+        insert( new Hit(ReligionName.BAHAISM, !ans, a) );
+        insert( new Hit(ReligionName.HINDUISM, ans, a) );
+        insert( new Hit(ReligionName.BUDDHISM, ans, a) );
+        insert( new Hit(ReligionName.SIKHISM, ans, a) );
+        insert( new Hit(ReligionName.JAINISM, ans, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, !ans, a) );
+        insert( new Hit(ReligionName.TAOISM, ans, a) );
+        insert( new Hit(ReligionName.SHINTO, ans, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, !ans, a) );
+        insert( new Hit(ReligionName.ATHEISM, !ans, a) );
+end
+
+rule "NESSESITY_OF_PRAYER"
+	when
+		a : Answer( questionType == QuestionType.NESSESITY_OF_PRAYER, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+        insert( new Hit(ReligionName.CHRISTIANITY, ans, a) );
+        insert( new Hit(ReligionName.ISLAM, ans, a) );
+        insert( new Hit(ReligionName.JUDAISM, ans, a) );
+        insert( new Hit(ReligionName.BAHAISM, ans, a) );
+        insert( new Hit(ReligionName.HINDUISM, ans, a) );
+        insert( new Hit(ReligionName.BUDDHISM, !ans, a) );
+        insert( new Hit(ReligionName.SIKHISM, ans, a) );
+        insert( new Hit(ReligionName.JAINISM, ans, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, !ans, a) );
+        insert( new Hit(ReligionName.TAOISM, ans, a) );
+        insert( new Hit(ReligionName.SHINTO, ans, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, ans, a) );
+        insert( new Hit(ReligionName.ATHEISM, !ans, a) );
+end
+
+rule "NESSESITY_OF_MEDITATION"
+	when
+		a : Answer( questionType == QuestionType.NESSESITY_OF_MEDITATION, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+        insert( new Hit(ReligionName.CHRISTIANITY, !ans, a) );
+        insert( new Hit(ReligionName.ISLAM, !ans, a) );
+        insert( new Hit(ReligionName.JUDAISM, !ans, a) );
+        insert( new Hit(ReligionName.BAHAISM, !ans, a) );
+        insert( new Hit(ReligionName.HINDUISM, ans, a) );
+        insert( new Hit(ReligionName.BUDDHISM, ans, a) );
+        insert( new Hit(ReligionName.SIKHISM, ans, a) );
+        insert( new Hit(ReligionName.JAINISM, ans, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, ans, a) );
+        insert( new Hit(ReligionName.TAOISM, ans, a) );
+        insert( new Hit(ReligionName.SHINTO, ans, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, ans, a) );
+        insert( new Hit(ReligionName.ATHEISM, !ans, a) );
+end
+
+rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 0"
+	when
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, content == 0 )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, true, a) );
+        insert( new Hit(ReligionName.ISLAM, true, a) );
+        insert( new Hit(ReligionName.JUDAISM, true, a) );
+        insert( new Hit(ReligionName.BAHAISM, true, a) );
+        insert( new Hit(ReligionName.HINDUISM, true, a) );
+        
+        insert( new Hit(ReligionName.SIKHISM, false, a) );
+        insert( new Hit(ReligionName.JAINISM, false, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, false, a) );
+        insert( new Hit(ReligionName.TAOISM, false, a) );
+        insert( new Hit(ReligionName.SHINTO, false, a) );
+        
+        insert( new Hit(ReligionName.ATHEISM, false, a) );
+end
+        
+rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 1"
+	when
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, content == 1 )
+	then
+        insert( new Hit(ReligionName.BUDDHISM, true, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, true, a) );
+end
+
+rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 2"
+	when
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, content == 2 )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.ISLAM, false, a) );
+        insert( new Hit(ReligionName.JUDAISM, false, a) );
+        insert( new Hit(ReligionName.BAHAISM, false, a) );
+        insert( new Hit(ReligionName.HINDUISM, false, a) );
+        
+        insert( new Hit(ReligionName.SIKHISM, true, a) );
+        insert( new Hit(ReligionName.JAINISM, true, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, true, a) );
+        insert( new Hit(ReligionName.TAOISM, true, a) );
+        insert( new Hit(ReligionName.SHINTO, true, a) );
+        
+        insert( new Hit(ReligionName.ATHEISM, true, a) );
+end
+
+rule "ACCEPTANCE_LEVEL_OF_ABORTION: 0"
+	when
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, content == 0 )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, true, a) );
+        insert( new Hit(ReligionName.HINDUISM, true, a) );
+        insert( new Hit(ReligionName.BUDDHISM, true, a) );
+        insert( new Hit(ReligionName.JAINISM, true, a) );
+        insert( new Hit(ReligionName.ATHEISM, false, a) );
+        insert( new Hit(ReligionName.SHINTO, false, a) );
+        
+end
+
+rule "ACCEPTANCE_LEVEL_OF_ABORTION: 1"
+	when
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, content ==1 )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.HINDUISM, false, a) );
+        insert( new Hit(ReligionName.BUDDHISM, false, a) );
+        insert( new Hit(ReligionName.JAINISM, false, a) );
+        insert( new Hit(ReligionName.ISLAM, true, a) );
+        insert( new Hit(ReligionName.JUDAISM, true, a) );
+        insert( new Hit(ReligionName.BAHAISM, true, a) );
+        insert( new Hit(ReligionName.SIKHISM, true, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, true, a) );
+        
+        
+end
+
+rule "ACCEPTANCE_LEVEL_OF_ABORTION: 2"
+	when
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, content == 2 )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.HINDUISM, false, a) );
+        insert( new Hit(ReligionName.BUDDHISM, false, a) );
+        insert( new Hit(ReligionName.JAINISM, false, a) );
+        insert( new Hit(ReligionName.ATHEISM, true, a) );
+        insert( new Hit(ReligionName.SHINTO, true, a) );
+        
+        
+end
+
+rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 0"
+	when
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, content == 0 )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, true, a) );
+        insert( new Hit(ReligionName.JUDAISM, true, a) );
+        insert( new Hit(ReligionName.ISLAM, true, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, true, a) );
+        insert( new Hit(ReligionName.TAOISM, true, a) );
+        insert( new Hit(ReligionName.SHINTO, true, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, true, a) );
+       	insert( new Hit(ReligionName.ATHEISM, false, a) );
+        insert( new Hit(ReligionName.JAINISM, false, a) );
+       	
+end
+
+rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 2"
+	when
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, content == 2 )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.JUDAISM, false, a) );
+        insert( new Hit(ReligionName.ISLAM, false, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, false, a) );
+        insert( new Hit(ReligionName.TAOISM, false, a) );
+        insert( new Hit(ReligionName.SHINTO, false, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, false, a) );
+       	insert( new Hit(ReligionName.ATHEISM, true, a) );
+        insert( new Hit(ReligionName.JAINISM, true, a) );
+       	
+end
+
+rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 1"
+	when
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, content == 1 )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.JUDAISM, false, a) );
+        insert( new Hit(ReligionName.ISLAM, false, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, false, a) );
+        insert( new Hit(ReligionName.TAOISM, false, a) );
+        insert( new Hit(ReligionName.SHINTO, false, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, false, a) );
+       	insert( new Hit(ReligionName.BUDDHISM, true, a) );
+        insert( new Hit(ReligionName.SIKHISM, true, a) );
+       	
+end
+
+rule "VIEW_OF_POLIGAMY: 0"
+	when
+		a : Answer( questionType == QuestionType.VIEW_OF_POLYGAMY, content == 0 )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, true, a) );
+        insert( new Hit(ReligionName.JUDAISM, false, a) );
+        insert( new Hit(ReligionName.BAHAISM, true, a) );
+        insert( new Hit(ReligionName.HINDUISM, false, a) );
+        insert( new Hit(ReligionName.JAINISM, true, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, true, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, true, a) );
+end
+
+rule "VIEW_OF_POLIGAMY: 1"
+	when
+		a : Answer( questionType == QuestionType.VIEW_OF_POLYGAMY, content == 1 )
+	then
+        insert( new Hit(ReligionName.ISLAM, true, a) );
+        insert( new Hit(ReligionName.BUDDHISM, true, a) );
+        insert( new Hit(ReligionName.SIKHISM, true, a) );
+end
+
+rule "VIEW_OF_POLIGAMY: 2"
+	when
+		a : Answer( questionType == QuestionType.VIEW_OF_POLYGAMY, content ==2 )
+	then
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.JUDAISM, true, a) );
+        insert( new Hit(ReligionName.BAHAISM, false, a) );
+        insert( new Hit(ReligionName.HINDUISM, true, a) );
+        insert( new Hit(ReligionName.JAINISM, false, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, false, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, false, a) );
+end
+
+rule "Retract answer"
+	when
+		a : Answer()
+	then
+		retract(a);
+end

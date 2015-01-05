@@ -45,10 +45,6 @@ public class StartingWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public StartingWindow() {
-		ExpertSystem system = new ExpertSystem();
-		system.initializeSystem();
-		
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -66,8 +62,7 @@ public class StartingWindow extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				//rozpoczęcie wnioskowania
-				questionWindow = new QuestionWindow("pytanie pierwsze", new String[] {"huj", "dupa", "kamieni kupa"});
-				questionWindow.setVisible(true);
+				ExpertSystem.initializeSystem();
 				
 				
 			}
@@ -75,8 +70,5 @@ public class StartingWindow extends JFrame {
 		contentPane.add(StartButton);
 
 	}
-	
-	
-	
 	
 }

@@ -2,9 +2,31 @@ package com.control;
 
 import com.control.ReligionName;
 
-public class Religion {
+public class Religion implements Comparable {
 	private ReligionName religionName;
 	private int hits;
+	public int getHits() {
+		return hits;
+	}
+
+	public void setHits(int hits) {
+		this.hits = hits;
+	}
+
+	public int getMisses() {
+		return misses;
+	}
+
+	public void setMisses(int misses) {
+		this.misses = misses;
+	}
+	
+	public float getRatio() {
+		if (hits == 0) return 0;
+		if (misses == 0) return Float.POSITIVE_INFINITY;
+		return (float)(hits) / (float)(misses);
+	}
+
 	private int misses;
 	
 	public Religion (ReligionName religionName) {
@@ -17,11 +39,23 @@ public class Religion {
 		return this.religionName;
 	}
 	
-	public void updateHits () {
-		this.hits++;
+	public void update (boolean type) {
+		if (type) this.hits++;
+		else this.misses++;
+	}
+
+	public int compareTo(Object o) {
+		return -1 * Float.compare(getRatio(), ((Religion)(o)).getRatio());
 	}
 	
-	public void updateMisses () {
-		this.misses++;
+	private boolean top;
+	
+	public boolean isTop() {
+		return top;
 	}
+	
+	public void setTop(boolean top) {
+		this.top = top;
+	}
+	
 }

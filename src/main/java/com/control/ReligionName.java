@@ -13,6 +13,6 @@ public enum ReligionName {
 	TAOISM,
 	SHINTO,
 	ZOROASTRIANISM,
-	ATHEIZM,
+	ATHEISM,
 	ALL
 }

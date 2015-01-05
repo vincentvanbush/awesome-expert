@@ -9,24 +9,21 @@ import org.kie.api.runtime.KieSession;
  */
 public class ExpertSystem {
 	
-	public KieServices ks;
-	public KieContainer kContainer;
-	public KieSession kSession;
+	public static KieServices ks;
+	public static KieContainer kContainer;
+	public static KieSession kSession;
 	
-	
-//    public static final void main(String[] args) {
-//            }
 	public ExpertSystem () {
 		
 	}
     
-    public void initializeSystem () {
+    public static void initializeSystem () {
     	try {
             // load up the knowledge base
-	        this.ks = KieServices.Factory.get();
-    	    this.kContainer = ks.getKieClasspathContainer();
-        	this.kSession = kContainer.newKieSession("ksession-rules");
-
+	        ks = KieServices.Factory.get();
+    	    kContainer = ks.getKieClasspathContainer();
+        	kSession = kContainer.newKieSession("ksession-rules");
+        	
             // go !
             //kSession.insert(message);
             kSession.fireAllRules();
@@ -35,6 +32,11 @@ public class ExpertSystem {
         }
 
     }
-    
+    /*
+    public static void main(String[] args) {
+    	ExpertSystem ex = new ExpertSystem();
+    	ex.initializeSystem();
+    }
+    */
     
 }

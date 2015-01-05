@@ -4,21 +4,21 @@ import com.control.QuestionType;
 import com.control.ReligionName;
 
 public class Question {
-	private QuestionType question;
+	private QuestionType type;
 	private Object[] answers;
 	private ReligionName[] religions;
-	private Boolean asked;
-	private int selectedAnswer;
+	private Boolean active;
+	private Object selectedAnswer;
 	
-	public Question (QuestionType question, Object answers[], ReligionName religions[] ) {
-		this.question = question;
+	public Question (QuestionType type, Object answers[], ReligionName religions[] ) {
+		this.type = type;
 		this.answers = answers;
 		this.religions = religions;
-		this.asked = false;
+		this.active = false;
 	}
 	
-	public QuestionType getQuestion () {
-		return this.question;
+	public QuestionType getType () {
+		return this.type;
 	}
 	
 	public Object[] getAnswers () {
@@ -29,11 +29,15 @@ public class Question {
 		return this.religions;
 	}
 	
-	public Boolean getAsked () {
-		return this.asked;
+	public Boolean getActive () {
+		return this.active;
 	}
 	
-	public int getSelectedAnswer () {
+	public Object getSelectedAnswer () {
 		return this.selectedAnswer;
+	}
+	
+	public void activate () {
+		this.active = true;
 	}
 }
