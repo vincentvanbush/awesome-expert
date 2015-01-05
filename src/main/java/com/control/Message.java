@@ -16,6 +16,7 @@ public class Message {
 		INITIAL_PHASE, // Jestesmy w fazie poczatkowej
 		INITIAL_PHASE_QUESTION, // prosba o kolejne pytanie z puli pytan poczatkowych
 		SECOND_PHASE,
+		INCREMENT_COUNTER,
 		SECOND_PHASE_QUESTION,
 		EVALUATE_BEST,
 		CHOOSE_TOP_RELIGION,

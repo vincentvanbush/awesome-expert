@@ -10,6 +10,7 @@ import com.control.Message;
 import com.control.Message.MessageType;
 import com.control.Hit;
 import com.control.Answer;
+import com.control.QuestionCounter;
 import java.util.ArrayList;
 
 global Religion glTopReligion;
@@ -63,10 +64,26 @@ rule "Init questions"
         insert(new Question(QuestionType.BAR, new Object[] {"ab", "cd"}, new ReligionName[] {ReligionName.SIKHISM}));
         insert(new Question(QuestionType.FIZZ, new Object[] {true, false}, new ReligionName[] {ReligionName.SIKHISM}));
         insert(new Question(QuestionType.BUZZ, new Object[] {0,1,2}, new ReligionName[] {ReligionName.SIKHISM}));
+        insert(new Question(QuestionType.FOO, new Object[] {0,1,2}, new ReligionName[] {ReligionName.SIKHISM}));
+        insert(new Question(QuestionType.BAR, new Object[] {3,4,5}, new ReligionName[] {ReligionName.SIKHISM}));
+        insert(new Question(QuestionType.FIZZ, new Object[] {6,7,8}, new ReligionName[] {ReligionName.SIKHISM}));
+        insert(new Question(QuestionType.BUZZ, new Object[] {9,5,2}, new ReligionName[] {ReligionName.SIKHISM}));
+        //insert(new Question(QuestionType.VIEW_OF_POLYGAMY, new Object[] {0,1,2}, new ReligionName[] {ReligionName.BUDDHISM}));
+        
+        
         
         
         insert(new Message(MessageType.INITIAL_PHASE));
         insert(new Message(MessageType.INITIAL_PHASE_QUESTION));    
+end
+
+rule "When entering second phase insert counter"
+	when
+		Message( type == MessageType.SECOND_PHASE )
+		not QuestionCounter(  )
+	then
+		System.err.println("Entering second phase - inserted question counter");
+		insert(new QuestionCounter());
 end
 
 rule "Choose initial phase question and open the corresponding window"
@@ -81,8 +98,45 @@ rule "Choose initial phase question and open the corresponding window"
 		System.err.println("[Asking question] " + question.getType());
 		new com.windows.QuestionWindow(kcontext, question, question.getAnswers()).show();
 end
+/*
+rule "Increment counter"
+	when
+		m: Message( type == MessageType.INCREMENT_COUNTER )
+		$counter : QuestionCounter()
+	then
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+		retract(m);
+		$counter.increment();
+		update($counter);
+end
+*/
 
-rule "Choose second phase question and open the corresponding window"
+rule "When there is no question that has not yet been asked, terminate"
+	when
+		m1: Message( type == MessageType.SECOND_PHASE )
+		m: Message( type == MessageType.SECOND_PHASE_QUESTION )
+		not Question( active == false )
+		$r: Religion( top== true )
+	then
+		retract(m);
+		System.err.println("[No unasked questions left] Top hit is: " + $r.getReligionName());
+end
+
+rule "Choose any other second phase question for the top religion if no question fits the best one"
+	when
+		m1: Message( type == MessageType.SECOND_PHASE )
+		m: Message( type == MessageType.SECOND_PHASE_QUESTION )
+		$r: Religion( top == true )
+		not Question( active == false, religions contains $r.religionName )
+		$questions : ArrayList() from collect ( Question( active == false ) ) // 
+	then
+		retract(m);
+		Question question = (Question)($questions.get(0));
+		System.err.println("[Asking 2nd phase question - specific for another] for religion: " + $r.getReligionName() + " / " + question.getType());
+		new com.windows.QuestionWindow(kcontext, question, question.getAnswers()).show();
+end
+
+rule "Choose second phase question for the top religion"
 	when
 		m1: Message( type == MessageType.SECOND_PHASE )
 		m: Message( type == MessageType.SECOND_PHASE_QUESTION )
@@ -92,10 +146,10 @@ rule "Choose second phase question and open the corresponding window"
 	then
 		retract(m);
 		Question question = (Question)($questions.get(0));
-		System.err.println("[Asking 2nd phase question] for religion: " + $r.getReligionName() + " / " + question.getType());
+		System.err.println("[Asking 2nd phase question - specific] for religion: " + $r.getReligionName() + " / " + question.getType());
 		new com.windows.QuestionWindow(kcontext, question, question.getAnswers()).show();
-		
 end
+
 
 rule "When no initial phase questions left"
 	when
@@ -124,16 +178,43 @@ rule "When getting an answer, in the initial phase, ask for next initial phase q
 		Message( type == MessageType.INITIAL_PHASE )
 	then
 		insert(new Message(MessageType.INITIAL_PHASE_QUESTION));
+		
 end
 
-rule "When getting an answer, in the second phase, ask for next second phase question"
+rule "When getting an answer, in the second phase, ask for next second phase question and increment counter"
 	when
 		$answer : Answer()
 		Message( type == MessageType.SECOND_PHASE )
+		$counter: QuestionCounter( value < 2 )
 	then
 		insert(new Message(MessageType.SECOND_PHASE_QUESTION));
+		$counter.increment();
+		update($counter);
+		retract($answer);
 end
 
+rule "When getting an answer, in the second phase, handle overflown counter"
+	when
+		$answer : Answer()
+		Message( type == MessageType.SECOND_PHASE )
+		$counter : QuestionCounter( value >= 2 )
+	then
+		insert(new Message(MessageType.EVALUATE_BEST));
+		$counter.reset();
+		update($counter);
+		retract($answer);
+end
+/*
+rule "When getting an answer, in the second phase, if counter is over, evaluate best fit"
+	when
+		$answer : Answer()
+		Message( type == MessageType.SECOND_PHASE )
+		$counter: QuestionCounter( value >= 3 )
+	then
+		$counter.reset();
+		insert(new Message(MessageType.EVALUATE_BEST));
+end
+*/
 rule "When hit"
 	when
 		h: Hit( hitType : type )
@@ -159,10 +240,11 @@ end
 rule "When ordered the evaluation of best fit ratio, ask the user if it is what he wants"
 	when
 		m1 : Message( type == MessageType.EVALUATE_BEST )
-		$r : ArrayList() from collect ( Religion( ratio >= 3.0 ) )
+		$r : ArrayList() from collect ( Religion( ratio >= 1.0 ) )
 	then
 		retract(m1);
 		Religion topRel = topReligion($r);
+		for (Object rel : $r) ((Religion)rel).setTop(false);
 		topRel.setTop(true);
 		update(topRel);
 		System.err.println("[Top choice] " + topRel.getRatio() + " : " + topRel.getReligionName());
