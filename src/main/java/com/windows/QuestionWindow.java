@@ -73,7 +73,7 @@ public class QuestionWindow extends JFrame {
 		QuestionArea.setText(question.getType().toString());
 		contentPane.add(QuestionArea);
 		
-		final JComboBox<Object> answerCombo = new JComboBox<Object>();
+		final JComboBox answerCombo = new JComboBox();
 		for (Object a : answers) {
 			answerCombo.addItem(a);
 		}

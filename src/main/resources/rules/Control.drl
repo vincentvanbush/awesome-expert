@@ -38,6 +38,8 @@ rule "Init religions"
 		insert(new Religion(ReligionName.TAOISM));
 		insert(new Religion(ReligionName.SHINTO));
 		insert(new Religion(ReligionName.ZOROASTRIANISM));
+		//NO ATHEISM
+		
 end
 
 rule "Init questions"
@@ -59,7 +61,27 @@ rule "Init questions"
         insert(new Question(QuestionType.RESTRICTIONS_OF_SEXUALITY, new Object[] {true, false}, new ReligionName[] {ReligionName.ALL}));
         insert(new Question(QuestionType.VIEW_OF_POLYGAMY, new Object[] {0, 1, 2}, new ReligionName[] {ReligionName.ALL}));
         
+        // Next questions connected with all religions
+        // If needed to ask in second phase, remove ReligionName.ALL and insert all religions one by one 
+        insert(new Question(QuestionType.MANIFESTATION_IN_DOCTRINAL_DIMENSION, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.MANIFESTATION_BY_RITUALS, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.SOCIAL_ORGANISATIONAL_SIDE, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.INDIVIDUAL_SPIRITUALITY, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.ALL}));
+        
+        insert(new Question(QuestionType.NUMBER_OF_FOLLOWERS, new Object[] {"over_1_mld", "over_100_mln", "over_10_mln", "over_1_mln", "under_1_mln"}, new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.TIME_OF_EXISTANCE, new Object[] {"over_30_ages", "over_15_ages", "over_5_ages", "under_5_ages"}, new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.PROCEEDINGS_WITH_DEAD, new Object[] {"burial", "cremation"}, new ReligionName[] {ReligionName.ALL}));
+        
         // Secondary phase questions (for specific sets of religions)
+        insert(new Question(QuestionType.OBLIGATION_OF_PRAYER, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.ISLAM}));
+        insert(new Question(QuestionType.PROHIBITION_FOR_ALCOHOL, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.ISLAM, ReligionName.SIKHISM, ReligionName.BUDDHISM, ReligionName.BAHAISM}));
+        insert(new Question(QuestionType.PROHIBITION_FOR_PORK, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.ISLAM, ReligionName.JUDAISM}));
+        insert(new Question(QuestionType.NEED_OF_PILGRIMAGE, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.ISLAM}));
+        insert(new Question(QuestionType.LACTOVEGETARIAN_DIET, new Object [] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.HINDUISM, ReligionName.SIKHISM, ReligionName.JAINISM, ReligionName.BUDDHISM}));
+        insert(new Question(QuestionType.PROHIBITION_FOR_BEEF, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.HINDUISM}));
+        insert(new Question(QuestionType.CIRCUMCISION, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.JUDAISM})); 
+        
+        
         insert(new Question(QuestionType.FOO, new Object[] {"dupa", "kupa"}, new ReligionName[] {ReligionName.SIKHISM}));
         insert(new Question(QuestionType.BAR, new Object[] {"ab", "cd"}, new ReligionName[] {ReligionName.SIKHISM}));
         insert(new Question(QuestionType.FIZZ, new Object[] {true, false}, new ReligionName[] {ReligionName.SIKHISM}));

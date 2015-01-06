@@ -21,8 +21,8 @@ import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.RuleContext;
 
 import com.control.Message;
-import com.control.Religion;
 import com.control.Message.MessageType;
+import com.control.Religion;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

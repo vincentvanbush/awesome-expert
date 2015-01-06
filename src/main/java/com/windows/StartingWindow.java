@@ -1,6 +1,5 @@
 package com.windows;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,13 +8,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.sample.ExpertSystem;
 import javax.swing.JButton;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
