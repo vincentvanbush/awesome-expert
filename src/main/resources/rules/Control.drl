@@ -240,26 +240,40 @@ rule "When hit"
 		update(r);
 end
 
+rule "When user tells to remove top choice religion but there is only one left"
+	when
+		m : Message( type == MessageType.RETRACT_TOP_RELIGION )
+		$r : ArrayList( size == 1 ) from collect ( Religion( ) )
+	then
+		retract(m);
+		System.err.println("I can't help you. You've rejected all the options.");
+end
+
 rule "When user tells to remove top choice religion, retract it"
 	when
 		m : Message( type == MessageType.RETRACT_TOP_RELIGION )
-		$r : ArrayList() from collect ( Religion( ratio >= 1.0 ) )
+		$r : ArrayList( size > 1 ) from collect ( Religion( ) )
+		$rel : Religion( top == true )
 	then
 		System.err.println("[Retracting top choice]");
 		retract(m);
-		retract(topReligion($r));
+		// retract(topReligion($r));
+		retract($rel);
 		insert(new Message(MessageType.EVALUATE_BEST));
 end
+
 
 
 rule "When ordered the evaluation of best fit ratio, ask the user if it is what he wants"
 	when
 		m1 : Message( type == MessageType.EVALUATE_BEST )
-		$r : ArrayList() from collect ( Religion( ratio >= 1.0 ) )
+		$r : ArrayList() from collect ( Religion( ) )
 	then
+		System.out.println("-------------------");
 		for (Object rel : $r) {
-			System.out.println(((Religion)rel).getReligionName());
+			System.out.println(((Religion)rel).getReligionName().toString() + " : " + ((Religion)rel).getRatio());
 		}
+		System.out.println("-------------------");
 		retract(m1);
 		Religion topRel = topReligion($r);
 		for (Object rel : $r) ((Religion)rel).setTop(false);
