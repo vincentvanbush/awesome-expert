@@ -848,8 +848,55 @@ rule "CIRCUMCISION"
 		Boolean ans = (Boolean) answer;
 		insert( new Hit(ReligionName.ISLAM, ans, a) );
 end
-		
 
+rule "FAST"
+	when
+		a : Answer( questionType == QuestionType.FAST, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+		insert( new Hit(ReligionName.CHRISTIANITY, ans, a) );
+		insert( new Hit(ReligionName.BAHAISM, ans, a) );
+end
+
+rule "KOSHER"
+	when
+		a : Answer( questionType == QuestionType.KOSHER, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+		insert( new Hit(ReligionName.JUDAISM, ans, a) );
+end
+
+rule "HOME_ALTAR"
+	when
+		a : Answer( questionType == QuestionType.HOME_ALTAR, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+		insert( new Hit(ReligionName.SHINTO, !ans, a) );
+end
+		
+rule "NECESSITY_OF_GIFT"
+	when
+		a : Answer( questionType == QuestionType.NECESSITY_OF_GIFT, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+		insert( new Hit(ReligionName.SHINTO, ans, a) );
+end
+
+rule "ANTHROPOMORPHIC_GODS"
+	when
+		a : Answer( questionType == QuestionType.ANTHROPOMORPHIC_GODS, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+		insert( new Hit(ReligionName.SHINTO, ans, a) );
+end
+
+rule "FRUITARIAN_DIET"
+	when
+		a : Answer( questionType == QuestionType.FRUITARIAN_DIET, answer : content )
+	then
+		Boolean ans = (Boolean) answer;
+		insert( new Hit(ReligionName.JAINISM, ans, a) );
+end
 
 
 

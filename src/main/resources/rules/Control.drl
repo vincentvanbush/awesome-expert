@@ -79,7 +79,13 @@ rule "Init questions"
         insert(new Question(QuestionType.NEED_OF_PILGRIMAGE, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.ISLAM}));
         insert(new Question(QuestionType.LACTOVEGETARIAN_DIET, new Object [] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.HINDUISM, ReligionName.SIKHISM, ReligionName.JAINISM, ReligionName.BUDDHISM}));
         insert(new Question(QuestionType.PROHIBITION_FOR_BEEF, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.HINDUISM}));
-        insert(new Question(QuestionType.CIRCUMCISION, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.JUDAISM})); 
+        insert(new Question(QuestionType.CIRCUMCISION, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.JUDAISM}));
+        insert(new Question(QuestionType.FAST, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.BAHAISM, ReligionName.CHRISTIANITY}));
+        insert(new Question(QuestionType.KOSHER, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.JUDAISM}));
+        insert(new Question(QuestionType.HOME_ALTAR, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.SHINTO}));
+        insert(new Question(QuestionType.NECESSITY_OF_GIFT, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.SHINTO}));
+        insert(new Question(QuestionType.ANTHROPOMORPHIC_GODS, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.SHINTO}));
+        insert(new Question(QuestionType.FRUITARIAN_DIET, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.JAINISM})); 
         
         
         insert(new Question(QuestionType.FOO, new Object[] {"dupa", "kupa"}, new ReligionName[] {ReligionName.SIKHISM}));
