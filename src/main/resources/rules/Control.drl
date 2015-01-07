@@ -11,6 +11,7 @@ import com.control.Message.MessageType;
 import com.control.Hit;
 import com.control.Answer;
 import com.control.QuestionCounter;
+import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
 global Religion glTopReligion;
@@ -246,6 +247,7 @@ rule "When user tells to remove top choice religion but there is only one left"
 		$r : ArrayList( size == 1 ) from collect ( Religion( ) )
 	then
 		retract(m);
+		JOptionPane.showMessageDialog(null, "Nie mogę Ci pomóc - odrzuciłeś wszystkie możliwe opcje, przykro mi.", "Religioznawca", JOptionPane.WARNING_MESSAGE);
 		System.err.println("I can't help you. You've rejected all the options.");
 end
 
