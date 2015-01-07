@@ -206,9 +206,9 @@ rule "NESSESITY_OF_MEDITATION"
         insert( new Hit(ReligionName.ATHEISM, !ans, a) );
 end
 
-rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 0"
+rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 10" // zdecydowanie nie akceptuję
 	when
-		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, content == 0 )
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, content == 10 )
 	then
         insert( new Hit(ReligionName.CHRISTIANITY, true, a) );
         insert( new Hit(ReligionName.ISLAM, true, a) );
@@ -225,17 +225,17 @@ rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 0"
         insert( new Hit(ReligionName.ATHEISM, false, a) );
 end
         
-rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 1"
+rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 11" // raczej nie akceptuję
 	when
-		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, content == 1 )
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, content == 11 )
 	then
         insert( new Hit(ReligionName.BUDDHISM, true, a) );
         insert( new Hit(ReligionName.ZOROASTRIANISM, true, a) );
 end
 
-rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 2"
+rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 12" // obojętne
 	when
-		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, content == 2 )
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, content == 12 )
 	then
         insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
         insert( new Hit(ReligionName.ISLAM, false, a) );
@@ -252,9 +252,9 @@ rule "ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY 2"
         insert( new Hit(ReligionName.ATHEISM, true, a) );
 end
 
-rule "ACCEPTANCE_LEVEL_OF_ABORTION: 0"
+rule "ACCEPTANCE_LEVEL_OF_ABORTION: 10" // zdecydowanie nie akceptuję
 	when
-		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, content == 0 )
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, content == 10 )
 	then
         insert( new Hit(ReligionName.CHRISTIANITY, true, a) );
         insert( new Hit(ReligionName.HINDUISM, true, a) );
@@ -265,9 +265,9 @@ rule "ACCEPTANCE_LEVEL_OF_ABORTION: 0"
         
 end
 
-rule "ACCEPTANCE_LEVEL_OF_ABORTION: 1"
+rule "ACCEPTANCE_LEVEL_OF_ABORTION: 11" // raczej nie akceptuję
 	when
-		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, content ==1 )
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, content == 11 )
 	then
         insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
         insert( new Hit(ReligionName.HINDUISM, false, a) );
@@ -282,9 +282,9 @@ rule "ACCEPTANCE_LEVEL_OF_ABORTION: 1"
         
 end
 
-rule "ACCEPTANCE_LEVEL_OF_ABORTION: 2"
+rule "ACCEPTANCE_LEVEL_OF_ABORTION: 13" // akceptuję
 	when
-		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, content == 2 )
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, content == 13 )
 	then
         insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
         insert( new Hit(ReligionName.HINDUISM, false, a) );
@@ -296,9 +296,24 @@ rule "ACCEPTANCE_LEVEL_OF_ABORTION: 2"
         
 end
 
-rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 0"
+rule "ACCEPTANCE_LEVEL_OF_ABORTION: 12" //obojętne
 	when
-		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, content == 0 )
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, content == 12 )
+	then
+        insert( new Hit(ReligionName.ZOROASTRIANISM, true, a) );
+        insert( new Hit(ReligionName.TAOISM, true, a) );
+        
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.HINDUISM, false, a) );
+        insert( new Hit(ReligionName.BUDDHISM, false, a) );
+        insert( new Hit(ReligionName.JAINISM, false, a) );
+        
+        
+end
+
+rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 10" //zdecydowanie nie akceptuję
+	when
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, content == 10 )
 	then
         insert( new Hit(ReligionName.CHRISTIANITY, true, a) );
         insert( new Hit(ReligionName.JUDAISM, true, a) );
@@ -312,9 +327,9 @@ rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 0"
        	
 end
 
-rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 2"
+rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 13" // akceptuję
 	when
-		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, content == 2 )
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, content == 13 )
 	then
         insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
         insert( new Hit(ReligionName.JUDAISM, false, a) );
@@ -328,9 +343,9 @@ rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 2"
        	
 end
 
-rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 1"
+rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 11" // raczej nie akceptuję
 	when
-		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, content == 1 )
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, content == 11 )
 	then
         insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
         insert( new Hit(ReligionName.JUDAISM, false, a) );
@@ -344,36 +359,71 @@ rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 1"
        	
 end
 
-rule "VIEW_OF_POLIGAMY: 0"
+rule "ACCEPTANCE_LEVEL_OF_EUTHANASIA: 12" // obojętne
 	when
-		a : Answer( questionType == QuestionType.VIEW_OF_POLYGAMY, content == 0 )
+		a : Answer( questionType == QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, content == 12 )
+	then
+		insert( new Hit(ReligionName.BAHAISM, true, a) );
+		
+		insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.JUDAISM, false, a) );
+        insert( new Hit(ReligionName.ISLAM, false, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, false, a) );
+        insert( new Hit(ReligionName.TAOISM, false, a) );
+        insert( new Hit(ReligionName.SHINTO, false, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, false, a) );
+end
+
+rule "VIEW_OF_POLIGAMY: 10" // zdecydowanie nie akceptuje
+	when
+		a : Answer( questionType == QuestionType.VIEW_OF_POLYGAMY, content == 10 )
 	then
         insert( new Hit(ReligionName.CHRISTIANITY, true, a) );
-        insert( new Hit(ReligionName.JUDAISM, false, a) );
         insert( new Hit(ReligionName.BAHAISM, true, a) );
-        insert( new Hit(ReligionName.HINDUISM, false, a) );
         insert( new Hit(ReligionName.JAINISM, true, a) );
         insert( new Hit(ReligionName.CONFUCIANISM, true, a) );
         insert( new Hit(ReligionName.ZOROASTRIANISM, true, a) );
+        
+        insert( new Hit(ReligionName.ISLAM, false, a) );        
+        insert( new Hit(ReligionName.HINDUISM, false, a) );
+
 end
 
-rule "VIEW_OF_POLIGAMY: 1"
+rule "VIEW_OF_POLIGAMY: 11" // raczej nie akceptuje
 	when
-		a : Answer( questionType == QuestionType.VIEW_OF_POLYGAMY, content == 1 )
+		a : Answer( questionType == QuestionType.VIEW_OF_POLYGAMY, content == 11 )
 	then
-        insert( new Hit(ReligionName.ISLAM, true, a) );
+        insert( new Hit(ReligionName.JUDAISM, true, a) );
         insert( new Hit(ReligionName.BUDDHISM, true, a) );
         insert( new Hit(ReligionName.SIKHISM, true, a) );
+        
+        
 end
 
-rule "VIEW_OF_POLIGAMY: 2"
+rule "VIEW_OF_POLIGAMY: 13" // akceptuje
 	when
-		a : Answer( questionType == QuestionType.VIEW_OF_POLYGAMY, content ==2 )
+		a : Answer( questionType == QuestionType.VIEW_OF_POLYGAMY, content == 13 )
 	then
-        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
-        insert( new Hit(ReligionName.JUDAISM, true, a) );
-        insert( new Hit(ReligionName.BAHAISM, false, a) );
+        insert( new Hit(ReligionName.ISLAM, true, a) );
         insert( new Hit(ReligionName.HINDUISM, true, a) );
+        
+        insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.BAHAISM, false, a) );        
+        insert( new Hit(ReligionName.JAINISM, false, a) );
+        insert( new Hit(ReligionName.CONFUCIANISM, false, a) );
+        insert( new Hit(ReligionName.ZOROASTRIANISM, false, a) );
+end
+
+rule "VIEW_OF_POLIGAMY: 12" // obojętne
+	when
+		a : Answer( questionType == QuestionType.VIEW_OF_POLYGAMY, content == 12 )
+	then
+		insert( new Hit(ReligionName.TAOISM, true, a) );
+		insert( new Hit(ReligionName.SHINTO, true, a) );
+		insert( new Hit(ReligionName.ATHEISM, true, a) );
+		
+		insert( new Hit(ReligionName.CHRISTIANITY, false, a) );
+        insert( new Hit(ReligionName.BAHAISM, false, a) );
         insert( new Hit(ReligionName.JAINISM, false, a) );
         insert( new Hit(ReligionName.CONFUCIANISM, false, a) );
         insert( new Hit(ReligionName.ZOROASTRIANISM, false, a) );

@@ -26,11 +26,15 @@ public class QuestionsAndAnswersConverter {
 		questions.put(QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, "Jaki jest twój poziom akceptacji aborcji?");
 		questions.put(QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, "Jaki jest twój poziom akceptacji eutanazji?");
 		questions.put(QuestionType.RESTRICTIONS_OF_SEXUALITY, "");
-		questions.put(QuestionType.VIEW_OF_POLYGAMY, "Jaki jest twój pogląd na temat poligamii i monogamii?");
-		questions.put(QuestionType.MANIFESTATION_IN_DOCTRINAL_DIMENSION, "Jak ważna jest dla ciebie manifestacja religii w wymiarze doktrynalnym? (doktryna, wiara, czytanie świętych ksiąg)");
-		questions.put(QuestionType.MANIFESTATION_BY_RITUALS, "Jak ważne jest dla ciebie manifestowanie religii poprzez czynności religijne takie jak kulty czy rytuały?");
-		questions.put(QuestionType.SOCIAL_ORGANISATIONAL_SIDE, "Jak duże znaczenie ma dla ciebie sfera społeczno-organizacyjna religii? (wspólnoty religijne i kontakt między nimi, hierarchiczność)");
-		questions.put(QuestionType.INDIVIDUAL_SPIRITUALITY, "Jak duże znaczenie ma dla ciebie duchowość indywidualna w wyznawanej religii? (modlitwa, mistyka, medytacja)");
+		questions.put(QuestionType.VIEW_OF_POLYGAMY, "Jaki jest twój pogląd na temat poligamii?");
+		questions.put(QuestionType.MANIFESTATION_IN_DOCTRINAL_DIMENSION, "Jak ważna jest dla ciebie manifestacja religii w wymiarze doktrynalnym? (doktryna, wiara, czytanie świętych ksiąg)\n\n"
+				+ "1 - nieważna\n4 - bardzo ważna");
+		questions.put(QuestionType.MANIFESTATION_BY_RITUALS, "Jak ważne jest dla ciebie manifestowanie religii poprzez czynności religijne takie jak kulty czy rytuały?\n\n"
+				+ "1 - nieważna\n4 - bardzo ważna");
+		questions.put(QuestionType.SOCIAL_ORGANISATIONAL_SIDE, "Jak duże znaczenie ma dla ciebie sfera społeczno-organizacyjna religii? (wspólnoty religijne i kontakt między nimi, hierarchiczność)\n\n"
+				+ "1 - nieważna\n4 - bardzo ważna");
+		questions.put(QuestionType.INDIVIDUAL_SPIRITUALITY, "Jak duże znaczenie ma dla ciebie duchowość indywidualna w wyznawanej religii? (modlitwa, mistyka, medytacja)\n\n"
+				+ "1 - nieważna\n4 - bardzo ważna");
 		questions.put(QuestionType.NUMBER_OF_FOLLOWERS, "Jak duża miałaby być religia, którą chciałbyś wyznawać?");
 		questions.put(QuestionType.TIME_OF_EXISTANCE, "Ilu wiekową historię chciałbyś by miała twoja religia?");
 		questions.put(QuestionType.PROCEEDINGS_WITH_DEAD, "Jak powinno się według ciebie postępować ze zmarłymi?");
@@ -65,9 +69,14 @@ public class QuestionsAndAnswersConverter {
 		answers.put(new String("under_5_ages"), "Poniżej 5 wieków");
 		answers.put(new String("burial"), "Pogrzeb");
 		answers.put(new String("cremation"), "Kremacja");
-		answers.put(new Integer(0), "Zdecydowanie się nie zgadzam");
-		answers.put(new Integer(1), "Raczej się nie zgadzam");
-		answers.put(new Integer(2), "Obojętne");
+		answers.put(new Integer(1), "1");
+		answers.put(new Integer(2), "2");
+		answers.put(new Integer(3), "3");
+		answers.put(new Integer(4), "4");
+		answers.put(new Integer(10), "Zdecydowanie nie akceptuję");
+		answers.put(new Integer(11), "Raczej nie akceptuję");
+		answers.put(new Integer(12), "Obojętne");
+		answers.put(new Integer(13), "Akceptuję");
 		
 		religions.put(ReligionName.CHRISTIANITY, "CHREŚCIJAŃSTWO");
 		religions.put(ReligionName.ISLAM, "ISLAM");
