@@ -27,6 +27,7 @@ import org.kie.api.runtime.rule.RuleContext;
 
 import com.control.Answer;
 import com.control.Question;
+import com.control.QuestionsAndAnswersConverter;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -70,12 +71,14 @@ public class QuestionWindow extends JFrame {
 		QuestionArea.setColumns(25);
 		QuestionArea.setRows(3);
 		QuestionArea.setFont(new Font("Dialog", Font.PLAIN, 16));
-		QuestionArea.setText(question.getType().toString());
+		//QuestionArea.setText(question.getType().toString());
+		QuestionArea.setText(QuestionsAndAnswersConverter.getQuestionString(question.getType()));
 		contentPane.add(QuestionArea);
 		
 		final JComboBox answerCombo = new JComboBox();
 		for (Object a : answers) {
-			answerCombo.addItem(a);
+			//answerCombo.addItem(a);
+			answerCombo.addItem(QuestionsAndAnswersConverter.getAnswerString(a));
 		}
 		contentPane.add(answerCombo);
 		/*

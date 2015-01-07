@@ -63,14 +63,14 @@ rule "Init questions"
         
         // Next questions connected with all religions
         // If needed to ask in second phase, remove ReligionName.ALL and insert all religions one by one 
-        insert(new Question(QuestionType.MANIFESTATION_IN_DOCTRINAL_DIMENSION, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.ALL}));
-        insert(new Question(QuestionType.MANIFESTATION_BY_RITUALS, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.ALL}));
-        insert(new Question(QuestionType.SOCIAL_ORGANISATIONAL_SIDE, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.ALL}));
-        insert(new Question(QuestionType.INDIVIDUAL_SPIRITUALITY, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.MANIFESTATION_IN_DOCTRINAL_DIMENSION, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.CHRISTIANITY, ReligionName.ISLAM, ReligionName.JUDAISM, ReligionName.BUDDHISM, ReligionName.HINDUISM, ReligionName.SIKHISM, ReligionName.JAINISM, ReligionName.SHINTO, ReligionName.TAOISM, ReligionName.ZOROASTRIANISM, ReligionName.CONFUCIANISM, ReligionName.BAHAISM, ReligionName.ATHEISM}));
+        insert(new Question(QuestionType.MANIFESTATION_BY_RITUALS, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.CHRISTIANITY, ReligionName.ISLAM, ReligionName.JUDAISM, ReligionName.BUDDHISM, ReligionName.HINDUISM, ReligionName.SIKHISM, ReligionName.JAINISM, ReligionName.SHINTO, ReligionName.TAOISM, ReligionName.ZOROASTRIANISM, ReligionName.CONFUCIANISM, ReligionName.BAHAISM, ReligionName.ATHEISM}));
+        insert(new Question(QuestionType.SOCIAL_ORGANISATIONAL_SIDE, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.CHRISTIANITY, ReligionName.ISLAM, ReligionName.JUDAISM, ReligionName.BUDDHISM, ReligionName.HINDUISM, ReligionName.SIKHISM, ReligionName.JAINISM, ReligionName.SHINTO, ReligionName.TAOISM, ReligionName.ZOROASTRIANISM, ReligionName.CONFUCIANISM, ReligionName.BAHAISM, ReligionName.ATHEISM}));
+        insert(new Question(QuestionType.INDIVIDUAL_SPIRITUALITY, new Object[] {1, 2, 3, 4}, new ReligionName[] {ReligionName.CHRISTIANITY, ReligionName.ISLAM, ReligionName.JUDAISM, ReligionName.BUDDHISM, ReligionName.HINDUISM, ReligionName.SIKHISM, ReligionName.JAINISM, ReligionName.SHINTO, ReligionName.TAOISM, ReligionName.ZOROASTRIANISM, ReligionName.CONFUCIANISM, ReligionName.BAHAISM, ReligionName.ATHEISM}));
         
-        insert(new Question(QuestionType.NUMBER_OF_FOLLOWERS, new Object[] {"over_1_mld", "over_100_mln", "over_10_mln", "over_1_mln", "under_1_mln"}, new ReligionName[] {ReligionName.ALL}));
-        insert(new Question(QuestionType.TIME_OF_EXISTANCE, new Object[] {"over_30_ages", "over_15_ages", "over_5_ages", "under_5_ages"}, new ReligionName[] {ReligionName.ALL}));
-        insert(new Question(QuestionType.PROCEEDINGS_WITH_DEAD, new Object[] {"burial", "cremation"}, new ReligionName[] {ReligionName.ALL}));
+        //insert(new Question(QuestionType.NUMBER_OF_FOLLOWERS, new Object[] {"over_1_mld", "over_100_mln", "over_10_mln", "over_1_mln", "under_1_mln"}, new ReligionName[] {ReligionName.ALL}));
+        //insert(new Question(QuestionType.TIME_OF_EXISTANCE, new Object[] {"over_30_ages", "over_15_ages", "over_5_ages", "under_5_ages"}, new ReligionName[] {ReligionName.ALL}));
+        insert(new Question(QuestionType.PROCEEDINGS_WITH_DEAD, new Object[] {"burial", "cremation"}, new ReligionName[] {ReligionName.CHRISTIANITY, ReligionName.ISLAM, ReligionName.JUDAISM, ReligionName.BUDDHISM, ReligionName.HINDUISM, ReligionName.SIKHISM, ReligionName.JAINISM, ReligionName.SHINTO, ReligionName.TAOISM, ReligionName.ZOROASTRIANISM, ReligionName.CONFUCIANISM, ReligionName.BAHAISM, ReligionName.ATHEISM}));
         
         // Secondary phase questions (for specific sets of religions)
         insert(new Question(QuestionType.OBLIGATION_OF_PRAYER, new Object[] {new Boolean(true), new Boolean(false)}, new ReligionName[] {ReligionName.ISLAM}));

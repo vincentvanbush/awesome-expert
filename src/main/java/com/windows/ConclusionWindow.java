@@ -23,6 +23,7 @@ import org.kie.api.runtime.rule.RuleContext;
 import com.control.Message;
 import com.control.Message.MessageType;
 import com.control.Religion;
+import com.control.QuestionsAndAnswersConverter;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -48,7 +49,7 @@ public class ConclusionWindow extends JFrame {
 		JLabel propositionLabel = new JLabel("Propozycja");
 		contentPane.add(propositionLabel);
 		
-		propositionTextField = new JTextField(rel.getReligionName().toString());
+		propositionTextField = new JTextField(QuestionsAndAnswersConverter.getReligionString(rel.getReligionName()));
 		contentPane.add(propositionTextField);
 		propositionTextField.setColumns(25);
 		
