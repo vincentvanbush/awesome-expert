@@ -92,6 +92,17 @@ rule "Init questions"
         insert(new Message(MessageType.INITIAL_PHASE_QUESTION));    
 end
 
+rule "When hit"
+	when
+		h: Hit( hitType : type )
+		r: Religion( religionName == h.religionName )
+	then
+		System.out.println(h.getReligionName() + " " + h.getType() + ", because " + h.getCause().toString());
+		retract(h);
+		r.update(hitType);
+		update(r);
+end
+
 rule "When entering second phase insert counter"
 	when
 		Message( type == MessageType.SECOND_PHASE )
@@ -181,7 +192,7 @@ end
 
 rule "When getting an answer, retract the corresponding question"
 	when
-		$answer : Answer()
+		$answer : Answer(processed == false)
 	then
 		System.err.println("[Answer] " + $answer.getQuestionType() + " " + $answer.getContent());
 		retract($answer.getQuestion());
@@ -198,47 +209,31 @@ end
 
 rule "When getting an answer, in the second phase, ask for next second phase question and increment counter"
 	when
-		$answer : Answer()
+		$answer : Answer(processed == false)
 		Message( type == MessageType.SECOND_PHASE )
 		$counter: QuestionCounter( value < 2 )
 	then
 		insert(new Message(MessageType.SECOND_PHASE_QUESTION));
 		$counter.increment();
 		update($counter);
-		retract($answer);
+		// retract($answer);
+		$answer.setProcessed(true);;
+		update($answer);
 end
 
 rule "When getting an answer, in the second phase, handle overflown counter"
 	when
-		$answer : Answer()
+		$answer : Answer(processed == false)
 		Message( type == MessageType.SECOND_PHASE )
 		$counter : QuestionCounter( value >= 2 )
 	then
-		insert(new Message(MessageType.EVALUATE_BEST));
+		
 		$counter.reset();
 		update($counter);
-		retract($answer);
-end
-/*
-rule "When getting an answer, in the second phase, if counter is over, evaluate best fit"
-	when
-		$answer : Answer()
-		Message( type == MessageType.SECOND_PHASE )
-		$counter: QuestionCounter( value >= 3 )
-	then
-		$counter.reset();
+		// retract($answer);
+		$answer.setProcessed(true);;
+		update($answer);
 		insert(new Message(MessageType.EVALUATE_BEST));
-end
-*/
-rule "When hit"
-	when
-		h: Hit( hitType : type )
-		r: Religion( religionName == h.religionName )
-	then
-		System.out.println(h.getReligionName() + " " + h.getType() + ", because " + h.getCause().toString());
-		retract(h);
-		r.update(hitType);
-		update(r);
 end
 
 rule "When user tells to remove top choice religion but there is only one left"

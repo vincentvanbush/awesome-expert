@@ -3,6 +3,8 @@ package com.control;
 public class Answer {
 	private Question question;
 	
+	private boolean processed;
+	
 	public Question getQuestion() {
 		return question;
 	}
@@ -25,5 +27,13 @@ public class Answer {
 	@Override
 	public String toString() {
 		return "[" + question.getType() + " : " + content + "]";
+	}
+
+	public boolean isProcessed() {
+		return processed;
+	}
+
+	public void setProcessed(boolean processed) {
+		this.processed = processed;
 	}
 }
