@@ -25,7 +25,7 @@ public class QuestionsAndAnswersConverter {
 		questions.put(QuestionType.ACCEPTANCE_LEVEL_OF_HOMOSEXUALITY, "Jaki jest twój poziom akceptacji homoseksualizmu?");
 		questions.put(QuestionType.ACCEPTANCE_LEVEL_OF_ABORTION, "Jaki jest twój poziom akceptacji aborcji?");
 		questions.put(QuestionType.ACCEPTANCE_LEVEL_OF_EUTHANASIA, "Jaki jest twój poziom akceptacji eutanazji?");
-		questions.put(QuestionType.RESTRICTIONS_OF_SEXUALITY, "");
+		//questions.put(QuestionType.RESTRICTIONS_OF_SEXUALITY, "");
 		questions.put(QuestionType.VIEW_OF_POLYGAMY, "Jaki jest twój pogląd na temat poligamii?");
 		questions.put(QuestionType.MANIFESTATION_IN_DOCTRINAL_DIMENSION, "Jak ważna jest dla ciebie manifestacja religii w wymiarze doktrynalnym? (doktryna, wiara, czytanie świętych ksiąg)\n\n"
 				+ "1 - nieważna\n4 - bardzo ważna");
@@ -46,7 +46,7 @@ public class QuestionsAndAnswersConverter {
 		questions.put(QuestionType.PROHIBITION_FOR_BEEF, "Czy zakaz jedzenia wołowiny jest dla ciebie akceptowalny?");
 		questions.put(QuestionType.CIRCUMCISION, "Czy zgodziłbyś się na obrzezanie swojego dziecka?");
 		questions.put(QuestionType.FAST, "Dostosowałbyś się do postu w określonych dniach/okresach roku?");
-		questions.put(QuestionType.KOSHER, "");
+		questions.put(QuestionType.KOSHER, "Czy przystosowałbyś się do restrykcji dotyczących nie tylko rodzajów produktów dozwolonych do spożycia ale też warunków ich produkowania, przyrządzania i spożywania?");
 		questions.put(QuestionType.HOME_ALTAR, "Czy nie przeszkadza ci posiadanie domowego ołtarzyka, przy którym oddaje się cześć bogu?");
 		questions.put(QuestionType.NECESSITY_OF_GIFT, "Odpowiadałoby ci w twojej religii składanie bogom drobnych ofiar w postaci produktów żywnościowych np. soli czy ryb?");
 		questions.put(QuestionType.ANTHROPOMORPHIC_GODS, "Przystałbyś na wiarę w antropomorficzne bóstwa, które uosabiają siły natury, zamieszkują przedmioty lub są ubóstwianymi przodkami?");
